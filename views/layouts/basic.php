@@ -25,7 +25,7 @@ $this->beginPage();
 <?php $this->beginBody(); ?>
 <p>Верхняя часть</p>
 
-<p><?= $content ?></p>
+<div><?= $content ?></div>
 
 <p>Нижняя часть</p>
 <?php $this->endBody();?>
