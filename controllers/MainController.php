@@ -21,13 +21,14 @@ class MainController extends \yii\web\Controller
         return $this->render('text-hello');
     }
 
-    public function actionSearch($search = null){
+    public function actionSearch($search = null, $year = null){
 //        $search = Yii::$app->request->post('search');
 
         return $this->render(
             'search',
             [
                 'search' => $search,
+                'year' => $year,
             ]
         );
     }

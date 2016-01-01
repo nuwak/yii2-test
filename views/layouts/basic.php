@@ -32,7 +32,7 @@ $this->beginPage();
             'brandLabel' => 'Тестовый сайт'
         ]);
             ActiveForm::begin([
-               'action' => ['main/search'],
+               'action' => ['/найти'],
 //                'method' => 'post',
                 'method' => 'get',
                 'options' => [
@@ -56,7 +56,9 @@ $this->beginPage();
             echo Html::submitButton(
                     '<span class="glyphicon glyphicon-search"></span>',
                     [
-                        'class' => 'btn btn-success'
+                        'class' => 'btn btn-success',
+//                        'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value.replace(/\s+/,"_") + ".html"',
+                        'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value + ".html"',
                     ]
                 );
             echo"</div>";
