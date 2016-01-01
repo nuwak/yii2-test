@@ -1,6 +1,8 @@
 <?php
 use app\assets\AppAsset;
 use yii\bootstrap\NavBar;
+use yii\bootstrap\Nav;
+use yii\bootstrap\Modal;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 /**
@@ -63,6 +65,48 @@ $this->beginPage();
                 );
             echo"</div>";
             ActiveForm::end();
+
+            echo Nav::widget([
+               'items' => [
+                   [
+                       'label' => 'Главная <span class="glyphicon glyphicon-home"></span>',
+                       'url' => ['main/index']
+                   ],
+                   [
+                       'label' => 'О проекте <span class="glyphicon glyphicon-question-sign"></span>',
+                       'url' => ['#'],
+                       'linkOptions' => [
+                           'data-toggle' => 'modal',
+                           'data-target' => '#modal',
+                           'style' => 'cursor: pointer; outline: none;'
+                       ]
+                   ],
+                   [
+                       'label' => 'Из коробки <span class="glyphicon glyphicon-inbox"></span>',
+                       'items' => [
+                           '<li class="dropdown-header">Расширения</li>',
+                           '<li class="divider"></li>',
+                           [
+                               'label' => 'Перейти к просмотру',
+                               'url' => ['widget-test/index']
+                           ]
+                       ]
+                   ]
+               ],
+                'encodeLabels' => false,
+                'options' => [
+                    'class' => 'navbar-nav navbar-right'
+                ]
+            ]);
+
+            Modal::begin(
+                [
+                    'header' => '<h2>Заказать</h2>',
+                    'id' => 'modal'
+                ]
+            );
+            echo 'форма заказа созания сайта';
+            Modal::end();
         NavBar::end();
     ?>
     <div class="container">
