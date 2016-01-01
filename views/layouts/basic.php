@@ -1,5 +1,8 @@
 <?php
 use app\assets\AppAsset;
+use yii\bootstrap\NavBar;
+use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 /**
  * Created by PhpStorm.
  * User: Nuwak
@@ -23,11 +26,54 @@ $this->beginPage();
 </head>
 <body>
 <?php $this->beginBody(); ?>
-<p>Верхняя часть</p>
+<div class="wrap">
+    <?php
+        NavBar::begin([
+            'brandLabel' => 'Тестовый сайт'
+        ]);
+            ActiveForm::begin([
+               'action' => ['main/search'],
+//                'method' => 'post',
+                'method' => 'get',
+                'options' => [
+                    'class' => 'navbar-form navbar-right'
+                ]
+            ]);
+            echo '<div class="input-group">';
+            echo Html::input(
+                'type:text',
+                'search',
+                '',
+                [
+                    'placeholder'=>'Найти...',
+                    'class' => 'form-control'
+                ]
+            );
 
-<div><?= $content ?></div>
+            echo"</div>";
 
-<p>Нижняя часть</p>
+            echo '<div class="input-group">';
+            echo Html::submitButton(
+                    '<span class="glyphicon glyphicon-search"></span>',
+                    [
+                        'class' => 'btn btn-success'
+                    ]
+                );
+            echo"</div>";
+            ActiveForm::end();
+        NavBar::end();
+    ?>
+    <div class="container">
+        <?=$content?>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+            <span class="badge">
+                <span class="glyphicon glyphicon-copyright-mark"></span> <?=Yii::$app->params['siteName']?> <?=date("Y")?>
+            </span>
+    </div>
+</footer>
 <?php $this->endBody();?>
 </body>
 </html>
