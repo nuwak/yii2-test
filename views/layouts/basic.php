@@ -33,39 +33,6 @@ $this->beginPage();
         NavBar::begin([
             'brandLabel' => 'Тестовый сайт'
         ]);
-            ActiveForm::begin([
-               'action' => ['/найти'],
-//                'method' => 'post',
-                'method' => 'get',
-                'options' => [
-                    'class' => 'navbar-form navbar-right'
-                ]
-            ]);
-            echo '<div class="input-group">';
-            echo Html::input(
-                'type:text',
-                'search',
-                '',
-                [
-                    'placeholder'=>'Найти...',
-                    'class' => 'form-control'
-                ]
-            );
-
-            echo"</div>";
-
-            echo '<div class="input-group">';
-            echo Html::submitButton(
-                    '<span class="glyphicon glyphicon-search"></span>',
-                    [
-                        'class' => 'btn btn-success',
-//                        'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value.replace(/\s+/,"_") + ".html"',
-                        'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value + ".html"',
-                    ]
-                );
-            echo"</div>";
-            ActiveForm::end();
-
             echo Nav::widget([
                'items' => [
                    [
@@ -91,6 +58,14 @@ $this->beginPage();
                                'url' => ['widget-test/index']
                            ]
                        ]
+                   ],
+                   [
+                       'label' => 'Регистрация',
+                       'url' => ['main/reg']
+                   ],
+                   [
+                       'label' => 'Вход',
+                       'url' => ['main/login']
                    ]
                ],
                 'encodeLabels' => false,
@@ -107,6 +82,39 @@ $this->beginPage();
             );
             echo 'форма заказа созания сайта';
             Modal::end();
+
+            ActiveForm::begin([
+                'action' => ['/найти'],
+        //                'method' => 'post',
+                'method' => 'get',
+                'options' => [
+                    'class' => 'navbar-form navbar-right'
+                ]
+            ]);
+            echo '<div class="input-group">';
+            echo Html::input(
+                'type:text',
+                'search',
+                '',
+                [
+                    'placeholder'=>'Найти...',
+                    'class' => 'form-control'
+                ]
+            );
+
+            echo"</div>";
+
+            echo '<div class="input-group">';
+            echo Html::submitButton(
+                '<span class="glyphicon glyphicon-search"></span>',
+                [
+                    'class' => 'btn btn-success',
+        //                        'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value.replace(/\s+/,"_") + ".html"',
+                    'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value + ".html"',
+                ]
+            );
+            echo"</div>";
+            ActiveForm::end();
         NavBar::end();
     ?>
     <div class="container">

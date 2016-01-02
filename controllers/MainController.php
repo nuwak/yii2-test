@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 use Yii;
+use app\models\RegForm;
+use app\models\LoginForm;
+
 class MainController extends \yii\web\Controller
 {
     public $layout = 'basic'; //Для контроллера можно поределить какой шаблон он будет использовать
@@ -30,6 +33,40 @@ class MainController extends \yii\web\Controller
                 'search' => $search,
                 'year' => $year,
             ]
+        );
+    }
+
+    public function actionReg(){
+
+//        if(Yii::$app->request->post()):
+//            echo '<pre>';
+//            print_r(Yii::$app->request->post());
+//            echo '</pre>';
+//            Yii::$app->end();
+//        endif;
+
+        $model = new RegForm();
+
+        return $this->render(
+            'reg',
+            ['model' => $model]
+        );
+    }
+
+    public function actionLogin(){
+
+//        if(Yii::$app->request->post()):
+//            echo '<pre>';
+//            print_r(Yii::$app->request->post());
+//            echo '</pre>';
+//            Yii::$app->end();
+//        endif;
+
+        $model = new LoginForm();
+
+        return $this->render(
+            'login',
+            ['model' => $model]
         );
     }
 
