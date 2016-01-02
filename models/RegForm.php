@@ -30,13 +30,14 @@ class RegForm extends Model {
             ['status', 'in', 'range' =>[
                 User::STATUS_NOT_ACTIVE,
                 User::STATUS_ACTIVE,
-            ]]
+            ]],
+//            ['username', 'string', 'min' => 5, 'on' => 'test']
             ]
             ;
     }
 
     public function reg(){
-        return true;
+        return false;
     }
 
     public function attributeLabels(){
