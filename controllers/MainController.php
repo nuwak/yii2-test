@@ -5,10 +5,7 @@ use Yii;
 use app\models\User;
 use app\models\RegForm;
 use app\models\LoginForm;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
-use yii\helpers\Html;
-use yii\helpers\Url;
+use app\models\Profile;
 
 class MainController extends BehaviorsController
 {
@@ -85,6 +82,22 @@ class MainController extends BehaviorsController
         Yii::$app->user->logout();
 
         return $this->redirect(['/main/index']);
+    }
+
+    public function actionProfile(){
+        $model = ($model = Profile::findOne(Yii::$app->user->id)) ? $model : new Profile();
+
+        if($model->load(Yii::$app->request->post()) && $model->validate()):
+            if($model->updateProfile()):
+                Yii::$app->session->setFlash('success','Профиль изменен');
+            else:
+                Yii::$app->session->setFlash('error', 'Профиль не изменен');
+                Yii::error('Ошибка записи. Профиль не изменен');
+                return $this->refresh();
+            endif;
+        endif;
+
+        return $this->render('profile', ['model' => $model]);
     }
 
 }

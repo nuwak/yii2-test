@@ -21,6 +21,8 @@ use \yii\db\Expression;
  * @property string $auth_key
  * @property integer $create_at
  * @property integer $updated_at
+ *
+ * @property Profile $profile
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -63,14 +65,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'username' => 'Ник',
             'email' => 'Email',
             'password' => 'Password',
-            'status' => 'Status',
+            'status' => 'Статус',
             'auth_key' => 'Auth Key',
-            'create_at' => 'Create At',
-            'updated_at' => 'Updated At',
+            'create_at' => 'Дата создания',
+            'updated_at' => 'Дата изменения',
         ];
+    }
+
+    public function getProfile(){
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
     }
 
     /*Поведения*/
