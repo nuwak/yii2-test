@@ -2,8 +2,13 @@
 
 namespace app\controllers;
 use Yii;
+use app\models\User;
 use app\models\RegForm;
 use app\models\LoginForm;
+use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 class MainController extends \yii\web\Controller
 {
@@ -39,11 +44,13 @@ class MainController extends \yii\web\Controller
     public function actionReg(){
         $model = new RegForm();
 
-//        $model->scenario = 'test';
-
         if($model->load(Yii::$app->request->post()) && $model->validate()):
-            if($model->reg()):
-                return $this->goHome();
+            if($user = $model->reg()):
+                if($user->status === User::STATUS_ACTIVE):
+                    if(Yii::$app->getUser()->login($user)):
+                        return $this->goHome();
+                    endif;
+                endif;
             else:
                 Yii::$app->session->setFlash('error', 'Возникла ошибка при регистрации.');
                 Yii::error('Ошибка при регистрации');
@@ -59,6 +66,9 @@ class MainController extends \yii\web\Controller
     public function actionLogin(){
         $model = new LoginForm();
 
+        if(!Yii::$app->user->isGuest):
+            return $this->goHome();
+        endif;
 //        $model->scenario = 'default';
 
         if($model->load(Yii::$app->request->post()) && $model->login()):
@@ -69,6 +79,12 @@ class MainController extends \yii\web\Controller
             'login',
             ['model' => $model]
         );
+    }
+
+    public function actionLogout(){
+        Yii::$app->user->logout();
+
+        return $this->redirect(['/main/index']);
     }
 
 }

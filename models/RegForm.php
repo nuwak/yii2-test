@@ -10,6 +10,8 @@ namespace app\models;
 
 use yii\base\Model;
 use Yii;
+use app\models\User;
+
 
 class RegForm extends Model {
 
@@ -23,10 +25,13 @@ class RegForm extends Model {
             [['username','email','password'],'filter', 'filter' => 'trim'],
             [['username','email','password'],'required'],
             ['username','string','min' => 2, 'max' => 255],
+            ['password', 'string', 'min' => 6, 'max' => 255],
             ['username', 'unique', 'targetClass' => User::ClassName(), 'message' => 'Это имя уже занято.'],
             ['email','email'],
             ['email', 'unique', 'targetClass' => User::ClassName(), 'message' => 'Эта почта уже занята.'],
-            ['status', 'default', 'value' => User::STATUS_ACTIVE, 'on' => 'default'],
+            ['status', 'default', 'value' => User::STATUS_ACTIVE,
+                'on' => 'default'
+            ],
             ['status', 'in', 'range' =>[
                 User::STATUS_NOT_ACTIVE,
                 User::STATUS_ACTIVE,
@@ -36,8 +41,25 @@ class RegForm extends Model {
             ;
     }
 
-    public function reg(){
-        return false;
+    public function reg()
+    {
+        $user = new User();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->status = $this->status;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+
+//        echo "<pre>";
+//        $user->save();
+//        var_dump($user->errors);
+//        echo "</pre>";die;
+
+        if($user->save()):
+            return $user;
+        else:
+            return null;
+        endif;
     }
 
     public function attributeLabels(){

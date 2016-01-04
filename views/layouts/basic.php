@@ -21,6 +21,7 @@ $this->beginPage();
 <!DOCTYPE html>
     <html lang="<?=Yii::$app->language?>">
 <head>
+    <?= Html::csrfMetaTags()?>
     <meta charset="<?=Yii::$app->charset?>"/>
     <?php $this->registerMetaTag(['name' => 'viewport','content'=>'width=device-width, initial-scale=1'])?>
     <title><?=$this->title .' : '. Yii::$app->name?></title>
@@ -33,41 +34,42 @@ $this->beginPage();
         NavBar::begin([
             'brandLabel' => 'Тестовый сайт'
         ]);
+
+        $menuItems = [
+            [
+                'label' => 'О проекте <span class="glyphicon glyphicon-question-sign"></span>',
+                'url' => ['#'],
+                'linkOptions' => [
+                    'data-toggle' => 'modal',
+                    'data-target' => '#modal',
+                    'style' => 'cursor: pointer; outline: none;'
+                ]
+            ],
+            [
+                'label' => 'Из коробки <span class="glyphicon glyphicon-inbox"></span>',
+                'items' => [
+                    '<li class="dropdown-header">Расширения</li>',
+                    '<li class="divider"></li>',
+                    [
+                        'label' => 'Перейти к просмотру',
+                        'url' => ['widget-test/index']
+                    ]
+                ]
+            ],
+        ];
+
+        if(Yii::$app->user->isGuest):
+            $menuItems[] = ['label' => 'Регистрация', 'url' => ['/main/reg']];
+            $menuItems[] = ['label' => 'Войти', 'url' => ['/main/login']];
+        else:
+            $menuItems[] = [
+                'label' => 'Выйти(' . Yii::$app->user->identity['username'] . ')',
+                'url' => ['/main/logout'],
+                'linkOptions' => ['data-method' => 'post']
+            ];
+        endif;
             echo Nav::widget([
-               'items' => [
-                   [
-                       'label' => 'Главная <span class="glyphicon glyphicon-home"></span>',
-                       'url' => ['main/index']
-                   ],
-                   [
-                       'label' => 'О проекте <span class="glyphicon glyphicon-question-sign"></span>',
-                       'url' => ['#'],
-                       'linkOptions' => [
-                           'data-toggle' => 'modal',
-                           'data-target' => '#modal',
-                           'style' => 'cursor: pointer; outline: none;'
-                       ]
-                   ],
-                   [
-                       'label' => 'Из коробки <span class="glyphicon glyphicon-inbox"></span>',
-                       'items' => [
-                           '<li class="dropdown-header">Расширения</li>',
-                           '<li class="divider"></li>',
-                           [
-                               'label' => 'Перейти к просмотру',
-                               'url' => ['widget-test/index']
-                           ]
-                       ]
-                   ],
-                   [
-                       'label' => 'Регистрация',
-                       'url' => ['main/reg']
-                   ],
-                   [
-                       'label' => 'Вход',
-                       'url' => ['main/login']
-                   ]
-               ],
+               'items' => $menuItems,
                 'encodeLabels' => false,
                 'options' => [
                     'class' => 'navbar-nav navbar-right'
