@@ -10,7 +10,7 @@ namespace app\controllers;
 
 //use Yii;
 
-class WidgetTestController extends  \yii\web\Controller
+class WidgetTestController extends  BehaviorsController
 {
     public function actionIndex()
     {

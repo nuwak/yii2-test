@@ -10,7 +10,7 @@ use yii\web\BadRequestHttpException;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-class MainController extends \yii\web\Controller
+class MainController extends BehaviorsController
 {
     public $layout = 'basic'; //Для контроллера можно поределить какой шаблон он будет использовать
 
