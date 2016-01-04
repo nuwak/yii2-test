@@ -77,8 +77,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 //itodo: Включить это поведение
 //    public function behaviors()
 //    {
+////        return [
+////            TimestampBehavior::className()
+////        ];
+//
 //        return [
-//            TimestampBehavior::className()
+//            'timestamp' => [
+//                'class' => TimestampBehavior::className(),
+//                //ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+//                //ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+//                'value' => new Expression('NOW()'),
+//
+//            ],
 //        ];
 //
 ////        return [
@@ -97,20 +107,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
 ////        ];
 //    }
 
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-                'updatedAtAttribute' => 'last_login',
-                'value' => new Expression('NOW()'),
-            ],
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            'timestamp' => [
+//                'class' => TimestampBehavior::className(),
+//            ],
+//        ];
+//    }
 
     /*Поиск*/
 
@@ -163,14 +167,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
 
-//    public function beforeSave($insert)
-//    {
-//        if (parent::beforeSave($insert)) {
-//            if ($this->isNewRecord) {
-//                $this->auth_key = \Yii::$app->security->generateRandomString();
-//            }
-//            return true;
-//        }
-//        return false;
-//    }
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord):
+                $this->create_at = time();
+                $this->updated_at = time();
+            else:
+                $this->updated_at = time();
+            endif;
+
+            return true;
+        }
+        return false;
+    }
 }

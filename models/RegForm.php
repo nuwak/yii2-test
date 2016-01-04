@@ -50,11 +50,6 @@ class RegForm extends Model {
         $user->setPassword($this->password);
         $user->generateAuthKey();
 
-//        echo "<pre>";
-//        $user->save();
-//        var_dump($user->errors);
-//        echo "</pre>";die;
-
         if($user->save()):
             return $user;
         else:
