@@ -26,7 +26,7 @@ class MainController extends BehaviorsController
         return $this->render('text-hello');
     }
 
-    public function actionSearch($search = null, $year = null){
+/*    public function actionSearch($search = null, $year = null){
 //        $search = Yii::$app->request->post('search');
 
         return $this->render(
@@ -37,7 +37,20 @@ class MainController extends BehaviorsController
             ]
         );
     }
+*/
 
+    public function actionSearch(){
+        $search = Yii::$app->session->get('search');
+        Yii::$app->session->remove('search');
+
+        return $this->render(
+            'search',
+            [
+                'search' => $search,
+//                'year' => $year,
+            ]
+        );
+    }
     public function actionReg(){
         $model = new RegForm();
 

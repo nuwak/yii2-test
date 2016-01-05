@@ -10,5 +10,5 @@
 $this->title = 'Поиск';
 echo "Поиск: $search";
 echo "<br/>";
-echo "Год: $year";
+//echo "Год: $year";
 ?>

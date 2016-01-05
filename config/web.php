@@ -60,9 +60,14 @@ $config = [
                     'route' => 'main/search',
                     'suffix' => '.html'
                 ],
+//                [
+//                    'pattern' => 'найти-<search:[\w\s]*>',
+////                    'pattern' => 'найти-<search:\w*>',
+//                    'route' => 'main/search',
+//                    'suffix' => '.html'
+//                ],
                 [
-                    'pattern' => 'найти-<search:[\w\s]*>',
-//                    'pattern' => 'найти-<search:\w*>',
+                    'pattern' => 'найти-<search:\w*>',
                     'route' => 'main/search',
                     'suffix' => '.html'
                 ],

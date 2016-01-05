@@ -16,6 +16,10 @@ use yii\widgets\ActiveForm;
         echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
     }
     ?>
+        <?php
+        if($model->user)
+            echo $form->field($model->user, 'username')
+        ?>
         <?= $form->field($model, 'first_name') ?>
         <?= $form->field($model, 'second_name') ?>
         <?= $form->field($model, 'middle_name') ?>

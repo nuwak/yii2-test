@@ -126,7 +126,8 @@ $this->beginPage();
                 [
                     'class' => 'btn btn-success',
         //                        'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value.replace(/\s+/,"_") + ".html"',
-                    'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value + ".html"',
+//                    'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value + ".html"',
+                    'onClick' => 'window.location.href = this.form.action + "-" + this.form.search.value.replace(/[^\w\а-яё\А-ЯЁ]+/g, "_") + ".html";'
                 ]
             );
             echo"</div>";
