@@ -8,10 +8,59 @@
  */
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\bootstrap\Nav;
 ?>
 <div class="row">
     <div class="col-md-6" style="border: 1px solid #f0ad4e">
-        левая колонка
+        Левая колонка
+        <br/>
+        <?php
+            echo Nav::widget([
+//                'activateItems' => false, //Активная страница не будет выделяться
+                'activateParents' => true, //выделяет родительское меню если активная ссылка из подменю
+                'encodeLabels' => false, //HTML код в название элементов не будет экранироваться
+                'options' => [
+//                    'class' => 'nav nav-tabs' //Вкладки
+//                    'class' => 'nav nav-pills' //Кнопки
+//                    'class' => 'nav nav-pills nav-stacked' //Вертикальное
+                    'class' => 'nav nav-pills nav-justified' //По всей ширине и по центру
+                ],
+               'items' => [
+                   [
+                       'label' => 'Ссылка 1 <span class="glyphicon glyphicon-alert"></span>',
+                       'url' => ['#'],
+                       'options' => [
+                           'class' => 'disabled'
+                       ],
+                       'linkOptions' => [
+                           'onClick' => 'return false'
+                       ]
+                   ],
+                   [
+                       'label' => 'Ссылка 2',
+                       'url' => ['#']
+                   ],
+                   [
+                       'label' => 'Выпадающий список',
+                       'items' => [
+                           [
+                               'label' => 'link 1',
+                               'url' => ['#'],
+                           ],
+                           '<li class"divider"></li>',
+                           '<li class"dropdown-header">Описание</li>',
+                           [
+                               'label' => 'link 2',
+                               'url' => ['widget-test/index'],
+                           ],
+                       ]
+                   ],
+               ]
+            ]);
+        ?>
+    </div>
+    <div class="col-md-6" style="border: 1px solid #f0ad4e">
+        Права колонка
         <div class="row">
             <div class="col-md-4" style="border: 1px solid #f0ad4e">
                 <?php
@@ -40,8 +89,5 @@ use yii\helpers\Url;
                 ?>
             </div>
         </div>
-    </div>
-    <div class="col-md-6" style="border: 1px solid #f0ad4e">
-        правая колонка
     </div>
 </div>

@@ -33,7 +33,15 @@ $this->beginPage();
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Тестовый сайт'
+        'brandLabel' => 'Тестовый сайт',
+        'options' =>[
+            'class' => 'navbar-default', //navbar-inverse - делает темное меню, navbar-fixed-top - закрепляет меню вверху
+            'id' => 'main-menu'
+        ],
+        'renderInnerContainer' => true,
+        'innerContainerOptions' => [
+            'class' => 'container'
+        ]
     ]);
     //https://www.youtube.com/watch?v=Vpx4O9bK4uI
     if (!Yii::$app->user->isGuest):
