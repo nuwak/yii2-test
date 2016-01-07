@@ -6,6 +6,7 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\AlertWidget;
 /**
  * Created by PhpStorm.
  * User: Nuwak
@@ -143,6 +144,7 @@ $this->beginPage();
         NavBar::end();
     ?>
     <div class="container">
+        <?=AlertWidget::widget()?>
         <?=$content?>
     </div>
 </div>

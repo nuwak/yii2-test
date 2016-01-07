@@ -41,6 +41,18 @@ class MainController extends BehaviorsController
 
     public function actionSearch(){
         $search = Yii::$app->session->get('search');
+        if($search):
+            Yii::$app->session->setFlash(
+                'success',
+                'Результат поиска'
+            );
+        else:
+            Yii::$app->session->setFlash(
+                'error',
+                'Не заполнена форма поиска'
+            );
+        endif;
+
         Yii::$app->session->remove('search');
 
         return $this->render(

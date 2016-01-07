@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     <?php
-    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
-        echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
-    }
+//    foreach (Yii::$app->session->getAllFlashes() as $key => $message) {
+//        echo '<div class="alert alert-' . $key . '">' . $message . '</div>';
+//    }
     ?>
         <?php
         if($model->user)
